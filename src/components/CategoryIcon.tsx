@@ -1,6 +1,9 @@
-import { Store, Cross, Building2, UtensilsCrossed, ParkingSquare } from "lucide-react";
+import { Store, Cross, Building2, UtensilsCrossed, ParkingSquare, LucideProps } from "lucide-react";
+import { ForwardRefExoticComponent, RefAttributes } from "react";
 
-const iconMap: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
+type LucideIcon = ForwardRefExoticComponent<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>>;
+
+const iconMap: Record<string, LucideIcon> = {
   malls: Store,
   hospitals: Cross,
   hotels: Building2,
