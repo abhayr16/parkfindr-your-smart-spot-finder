@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { ArrowLeft, MapPin } from "lucide-react";
 import { locations } from "@/data/locations";
@@ -15,19 +15,22 @@ const generateSlots = (floor: number, total: number) => {
 const LocationDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { setBooking, user } = useApp();
-  const location = locations.find((l) => l.id === id);
+  const { setBooking } = useApp();
   const [activeFloor, setActiveFloor] = useState(1);
   const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
 
-  if (!location) return null;
+  const location = locations.find((l) => l.id === id);
+  const floors = location ? Array.from({ length: location.floors }, (_, i) => i + 1) : [];
 
-  const floors = Array.from({ length: location.floors }, (_, i) => i + 1);
-  const [slots] = useState(() => {
+  const slots = useMemo(() => {
+    if (!location) return {};
     const map: Record<number, ReturnType<typeof generateSlots>> = {};
     floors.forEach((f) => { map[f] = generateSlots(f, 12); });
     return map;
-  });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
+
+  if (!location) return null;
 
   const currentSlots = slots[activeFloor] || [];
 
@@ -46,7 +49,6 @@ const LocationDetail = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
       <div className="gradient-hero pt-12 pb-6 px-5 rounded-b-[1.5rem]">
         <button onClick={() => navigate(-1)} className="text-primary-foreground mb-3">
           <ArrowLeft size={22} />
@@ -59,16 +61,13 @@ const LocationDetail = () => {
       </div>
 
       <div className="px-5 pt-5">
-        {/* Floor tabs */}
         <div className="flex gap-2 mb-5">
           {floors.map((f) => (
             <button
               key={f}
               onClick={() => { setActiveFloor(f); setSelectedSlot(null); }}
               className={`flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all ${
-                activeFloor === f
-                  ? "bg-primary text-primary-foreground shadow-sm"
-                  : "bg-muted text-muted-foreground"
+                activeFloor === f ? "bg-primary text-primary-foreground shadow-sm" : "bg-muted text-muted-foreground"
               }`}
             >
               Floor {f}
@@ -76,14 +75,12 @@ const LocationDetail = () => {
           ))}
         </div>
 
-        {/* Legend */}
         <div className="flex gap-4 mb-4 text-xs">
           <div className="flex items-center gap-1.5"><div className="w-3.5 h-3.5 rounded bg-parking-available" /> Available</div>
           <div className="flex items-center gap-1.5"><div className="w-3.5 h-3.5 rounded bg-parking-occupied" /> Occupied</div>
           <div className="flex items-center gap-1.5"><div className="w-3.5 h-3.5 rounded bg-parking-selected" /> Selected</div>
         </div>
 
-        {/* Slots grid */}
         <div className="grid grid-cols-4 gap-2.5">
           {currentSlots.map((slot) => {
             const isSelected = selectedSlot === slot.id;
@@ -107,7 +104,6 @@ const LocationDetail = () => {
           })}
         </div>
 
-        {/* Proceed button */}
         {selectedSlot && (
           <button
             onClick={handleProceed}
