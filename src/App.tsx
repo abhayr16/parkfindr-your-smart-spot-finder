@@ -11,6 +11,12 @@ import LocationDetail from "./pages/LocationDetail";
 import BookingScreen from "./pages/BookingScreen";
 import PaymentScreen from "./pages/PaymentScreen";
 import ConfirmedScreen from "./pages/ConfirmedScreen";
+import SearchScreen from "./pages/SearchScreen";
+import BookingsScreen from "./pages/BookingsScreen";
+import ProfileScreen from "./pages/ProfileScreen";
+import LeaderboardScreen from "./pages/LeaderboardScreen";
+import SettingsScreen from "./pages/SettingsScreen";
+import ContactSupportScreen from "./pages/ContactSupportScreen";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -31,6 +37,12 @@ const App = () => (
               <Route path="/booking" element={<BookingScreen />} />
               <Route path="/payment" element={<PaymentScreen />} />
               <Route path="/confirmed" element={<ConfirmedScreen />} />
+              <Route path="/search" element={<SearchScreen />} />
+              <Route path="/bookings" element={<BookingsScreen />} />
+              <Route path="/profile" element={<ProfileScreen />} />
+              <Route path="/leaderboard" element={<LeaderboardScreen />} />
+              <Route path="/settings" element={<SettingsScreen />} />
+              <Route path="/support" element={<ContactSupportScreen />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </div>
