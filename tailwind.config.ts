@@ -60,6 +60,11 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        parking: {
+          available: "hsl(var(--parking-available))",
+          occupied: "hsl(var(--parking-occupied))",
+          selected: "hsl(var(--parking-selected))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
