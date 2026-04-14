@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { ArrowLeft, MapPin } from "lucide-react";
+import { ArrowLeft, MapPin, Car } from "lucide-react";
 import { locations } from "@/data/locations";
 import { useApp } from "@/context/AppContext";
 
@@ -97,7 +97,7 @@ const LocationDetail = () => {
                     : "bg-parking-available/15 text-parking-available border border-parking-available/30 active:scale-95"
                 }`}
               >
-                <span className="text-lg mb-0.5">🚗</span>
+                <Car size={18} className="mb-0.5" />
                 <span>{slot.id.split("-")[1]}</span>
               </button>
             );
