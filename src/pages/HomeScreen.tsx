@@ -11,6 +11,8 @@ import {
   Cross,
   Building2,
   UtensilsCrossed,
+  Fuel,
+  Coffee,
 } from "lucide-react";
 import { categories, locations } from "@/data/locations";
 import { useApp } from "@/context/AppContext";
@@ -61,11 +63,13 @@ const HomeScreen = () => {
   ];
 
   const categoryButtons = [
-    { key: "parking", label: "Nearby Parking", Icon: ParkingSquare, bg: "#DBEAFE", color: "#2563EB" },
+    { key: "parking", label: "Parking", Icon: ParkingSquare, bg: "#DBEAFE", color: "#2563EB" },
     { key: "malls", label: "Malls", Icon: Store, bg: "#FCE7F3", color: "#DB2777" },
     { key: "hospitals", label: "Hospitals", Icon: Cross, bg: "#FEE2E2", color: "#DC2626" },
     { key: "hotels", label: "Hotels", Icon: Building2, bg: "#DCFCE7", color: "#16A34A" },
-    { key: "restaurants", label: "Restaurants", Icon: UtensilsCrossed, bg: "#FFEDD5", color: "#EA580C" },
+    { key: "restaurants", label: "Food", Icon: UtensilsCrossed, bg: "#FFEDD5", color: "#EA580C" },
+    { key: "fuel", label: "Fuel", Icon: Fuel, bg: "#FEF3C7", color: "#D97706" },
+    { key: "cafes", label: "Cafes", Icon: Coffee, bg: "#EDE9FE", color: "#7C3AED" },
   ];
 
   const firstName = user?.name?.split(" ")[0] || "Ada";
