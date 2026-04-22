@@ -1,10 +1,20 @@
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Search, Car, Clock, IndianRupee, MapPin, Bell, SlidersHorizontal, ParkingSquare, Store, Cross, Building2, UtensilsCrossed } from "lucide-react";
+import {
+  Search,
+  Car,
+  Clock,
+  IndianRupee,
+  Bell,
+  ParkingSquare,
+  Store,
+  Cross,
+  Building2,
+  UtensilsCrossed,
+} from "lucide-react";
 import { categories, locations } from "@/data/locations";
 import { useApp } from "@/context/AppContext";
 import BottomNav from "@/components/BottomNav";
-import heroImg from "@/assets/home-hero.jpg";
 import mallsImg from "@/assets/cat-malls.jpg";
 import hospitalsImg from "@/assets/cat-hospitals.jpg";
 import hotelsImg from "@/assets/cat-hotels.jpg";
@@ -19,14 +29,6 @@ const categoryImages: Record<string, string> = {
   parking: parkingImg,
 };
 
-const quickChips = [
-  { key: "parking", label: "Nearby Parking", Icon: ParkingSquare, tint: "bg-primary/10 text-primary" },
-  { key: "malls", label: "Malls", Icon: Store, tint: "bg-[hsl(280_80%_96%)] text-[hsl(280_60%_50%)]" },
-  { key: "hospitals", label: "Hospitals", Icon: Cross, tint: "bg-[hsl(0_80%_96%)] text-[hsl(0_70%_55%)]" },
-  { key: "hotels", label: "Hotels", Icon: Building2, tint: "bg-[hsl(150_60%_94%)] text-[hsl(150_55%_38%)]" },
-  { key: "restaurants", label: "Restaurants", Icon: UtensilsCrossed, tint: "bg-[hsl(35_90%_94%)] text-[hsl(30_80%_45%)]" },
-];
-
 const sectionTitle: Record<string, string> = {
   malls: "Popular Malls",
   hospitals: "Nearby Hospitals",
@@ -34,6 +36,8 @@ const sectionTitle: Record<string, string> = {
   restaurants: "Top Restaurants",
   parking: "Public Parking",
 };
+
+const CARD_SHADOW = "0px 4px 20px rgba(0, 0, 0, 0.05)";
 
 const HomeScreen = () => {
   const navigate = useNavigate();
@@ -49,143 +53,342 @@ const HomeScreen = () => {
   );
 
   const stats = [
-    { icon: Car, label: "Total Visits", value: "24", tint: "bg-primary text-primary-foreground" },
-    { icon: Clock, label: "Hours Parked", value: "18", tint: "bg-[hsl(265_85%_60%)] text-white" },
-    { icon: IndianRupee, label: "Total Spent", value: "1,200", tint: "bg-accent text-accent-foreground" },
+    { icon: Car, label: "Total Visits", value: "24", bg: "#DBEAFE", color: "#2563EB" },
+    { icon: Clock, label: "Hours Parked", value: "18", bg: "#EDE9FE", color: "#7C3AED" },
+    { icon: IndianRupee, label: "Spent", value: "₹1,200", bg: "#DCFCE7", color: "#16A34A" },
   ];
 
-  const firstName = user?.name?.split(" ")[0] || "there";
-  const initial = (user?.name || "U").charAt(0).toUpperCase();
+  const categoryButtons = [
+    { key: "parking", label: "Nearby Parking", Icon: ParkingSquare, bg: "#DBEAFE", color: "#2563EB" },
+    { key: "malls", label: "Malls", Icon: Store, bg: "#FCE7F3", color: "#DB2777" },
+    { key: "hospitals", label: "Hospitals", Icon: Cross, bg: "#FEE2E2", color: "#DC2626" },
+    { key: "hotels", label: "Hotels", Icon: Building2, bg: "#DCFCE7", color: "#16A34A" },
+    { key: "restaurants", label: "Restaurants", Icon: UtensilsCrossed, bg: "#FFEDD5", color: "#EA580C" },
+  ];
+
+  const firstName = user?.name?.split(" ")[0] || "Ada";
+  const initial = (user?.name || "A").charAt(0).toUpperCase();
 
   return (
-    <div className="min-h-screen gradient-soft pb-24">
-      {/* Top bar */}
-      <div className="px-5 pt-10 pb-3 flex items-center justify-between">
-        <div>
-          <p className="text-xs text-muted-foreground">Good morning,</p>
-          <p className="text-sm font-semibold text-foreground">{firstName}</p>
+    <div
+      style={{
+        backgroundColor: "#F6F8FB",
+        fontFamily: "'Inter', sans-serif",
+        color: "#1E293B",
+        minHeight: "100vh",
+        paddingBottom: 88,
+      }}
+    >
+      {/* HEADER */}
+      <header style={{ padding: "16px 16px 0 16px" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+          <div>
+            <p style={{ fontSize: 14, color: "#64748B", margin: 0 }}>Good morning, {firstName}</p>
+            <h1
+              style={{
+                fontSize: 28,
+                fontWeight: 700,
+                lineHeight: 1.2,
+                margin: "4px 0 0 0",
+                color: "#1E293B",
+              }}
+            >
+              Find parking,
+              <br />
+              anywhere you go
+            </h1>
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            <button
+              aria-label="Notifications"
+              style={{
+                width: 36,
+                height: 36,
+                borderRadius: 18,
+                background: "transparent",
+                border: "none",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                cursor: "pointer",
+                position: "relative",
+              }}
+            >
+              <Bell size={20} color="#1E293B" />
+              <span
+                style={{
+                  position: "absolute",
+                  top: 6,
+                  right: 8,
+                  width: 6,
+                  height: 6,
+                  borderRadius: 3,
+                  background: "#EF4444",
+                }}
+              />
+            </button>
+            <button
+              onClick={() => navigate("/profile")}
+              aria-label="Profile"
+              style={{
+                width: 36,
+                height: 36,
+                borderRadius: 18,
+                background: "linear-gradient(135deg,#3B82F6,#2563EB)",
+                color: "#FFFFFF",
+                fontSize: 14,
+                fontWeight: 600,
+                border: "none",
+                cursor: "pointer",
+              }}
+            >
+              {initial}
+            </button>
+          </div>
         </div>
-        <div className="flex items-center gap-2">
-          <button className="h-10 w-10 rounded-full bg-card shadow-card border border-border/50 flex items-center justify-center relative" aria-label="Notifications">
-            <Bell size={17} className="text-foreground" />
-            <span className="absolute top-2 right-2.5 h-1.5 w-1.5 rounded-full bg-destructive" />
-          </button>
-          <button
-            onClick={() => navigate("/profile")}
-            className="h-10 w-10 rounded-full gradient-primary text-primary-foreground font-semibold shadow-float flex items-center justify-center"
-            aria-label="Open profile"
-          >
-            {initial}
-          </button>
-        </div>
-      </div>
+      </header>
 
-      {/* Hero headline + illustration */}
-      <div className="px-5 pt-1">
-        <h1 className="text-2xl font-extrabold text-foreground tracking-tight leading-tight">
-          Find parking,
-          <br />
-          anywhere you go
-        </h1>
-        <div className="mt-3 rounded-2xl overflow-hidden">
-          <img src={heroImg} alt="City parking" width={1280} height={512} className="w-full h-28 object-cover" />
-        </div>
-      </div>
-
-      {/* Floating search */}
-      <div className="px-5 mt-4">
-        <div className="relative">
-          <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" />
+      {/* SEARCH BAR */}
+      <div style={{ padding: "24px 16px 0 16px" }}>
+        <div
+          style={{
+            height: 52,
+            borderRadius: 16,
+            background: "#FFFFFF",
+            boxShadow: CARD_SHADOW,
+            display: "flex",
+            alignItems: "center",
+            padding: "0 16px",
+            gap: 12,
+          }}
+        >
+          <Search size={18} color="#64748B" />
           <input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search for a mall, hotel or hospital..."
-            className="w-full h-12 rounded-2xl bg-card pl-11 pr-12 text-sm text-foreground placeholder:text-muted-foreground outline-none shadow-float border border-border/60 focus:border-primary/40 transition"
+            style={{
+              flex: 1,
+              border: "none",
+              outline: "none",
+              fontSize: 14,
+              color: "#1E293B",
+              background: "transparent",
+              fontFamily: "inherit",
+            }}
           />
-          <button
-            onClick={() => navigate("/search")}
-            className="absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8 rounded-lg bg-secondary text-secondary-foreground flex items-center justify-center"
-            aria-label="Filters"
-          >
-            <SlidersHorizontal size={15} />
-          </button>
         </div>
       </div>
 
-      {/* Stat pill cards */}
-      <div className="px-5 mt-4 grid grid-cols-3 gap-3">
+      {/* STATS */}
+      <div
+        style={{
+          padding: "24px 16px 0 16px",
+          display: "grid",
+          gridTemplateColumns: "repeat(3, 1fr)",
+          gap: 16,
+        }}
+      >
         {stats.map((s) => (
-          <div key={s.label} className="bg-card rounded-2xl p-3 shadow-card border border-border/50 flex items-center gap-2.5">
-            <div className={`h-9 w-9 rounded-full flex items-center justify-center shrink-0 ${s.tint}`}>
-              <s.icon size={16} />
+          <div
+            key={s.label}
+            style={{
+              height: 80,
+              borderRadius: 16,
+              background: "#FFFFFF",
+              boxShadow: CARD_SHADOW,
+              padding: 12,
+              display: "flex",
+              alignItems: "center",
+              gap: 10,
+            }}
+          >
+            <div
+              style={{
+                width: 40,
+                height: 40,
+                borderRadius: "50%",
+                background: s.bg,
+                color: s.color,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexShrink: 0,
+              }}
+            >
+              <s.icon size={18} />
             </div>
-            <div className="min-w-0">
-              <p className="text-base font-bold text-foreground leading-none truncate">
-                {s.label === "Total Spent" ? `₹${s.value}` : s.value}
+            <div style={{ minWidth: 0 }}>
+              <p style={{ fontSize: 18, fontWeight: 600, margin: 0, color: "#1E293B", lineHeight: 1.1 }}>
+                {s.value}
               </p>
-              <p className="text-[10px] text-muted-foreground mt-1 truncate">{s.label}</p>
+              <p style={{ fontSize: 12, color: "#64748B", margin: "2px 0 0 0" }}>{s.label}</p>
             </div>
           </div>
         ))}
       </div>
 
-      {/* Quick category chips */}
-      <div className="mt-5">
-        <div className="px-5 flex gap-2.5 overflow-x-auto scrollbar-hide pb-1">
-          {quickChips.map((c) => (
-            <button
-              key={c.key}
-              onClick={() => navigate("/search")}
-              className="shrink-0 bg-card rounded-2xl px-3.5 py-2.5 shadow-card border border-border/50 flex items-center gap-2"
+      {/* CATEGORY BUTTONS */}
+      <div
+        style={{
+          padding: "24px 16px 0 16px",
+          display: "grid",
+          gridTemplateColumns: "repeat(5, 1fr)",
+          gap: 12,
+        }}
+      >
+        {categoryButtons.map((c) => (
+          <button
+            key={c.key}
+            onClick={() => navigate("/search")}
+            style={{
+              height: 72,
+              borderRadius: 16,
+              background: "#FFFFFF",
+              boxShadow: CARD_SHADOW,
+              border: "none",
+              cursor: "pointer",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 6,
+              padding: 8,
+            }}
+          >
+            <div
+              style={{
+                width: 32,
+                height: 32,
+                borderRadius: 16,
+                background: c.bg,
+                color: c.color,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
             >
-              <span className={`h-7 w-7 rounded-full flex items-center justify-center ${c.tint}`}>
-                <c.Icon size={14} />
-              </span>
-              <span className="text-xs font-semibold text-foreground">{c.label}</span>
-            </button>
-          ))}
-        </div>
+              <c.Icon size={18} />
+            </div>
+            <span
+              style={{
+                fontSize: 11,
+                fontWeight: 500,
+                color: "#1E293B",
+                textAlign: "center",
+                lineHeight: 1.2,
+              }}
+            >
+              {c.label}
+            </span>
+          </button>
+        ))}
       </div>
 
-      {/* Sections */}
-      <div className="px-5 pt-6 space-y-7">
+      {/* SECTIONS */}
+      <div style={{ padding: "24px 16px 0 16px", display: "flex", flexDirection: "column", gap: 24 }}>
         {categories.map((cat) => {
           const items = filteredLocations.filter((l) => l.category === cat.key);
           if (items.length === 0) return null;
           return (
             <section key={cat.key}>
-              <div className="flex items-end justify-between mb-3">
-                <h2 className="text-base font-bold text-foreground tracking-tight">
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  marginBottom: 12,
+                }}
+              >
+                <h2 style={{ fontSize: 16, fontWeight: 600, color: "#1E293B", margin: 0 }}>
                   {sectionTitle[cat.key] || cat.label}
                 </h2>
-                <button onClick={() => navigate("/search")} className="text-xs font-semibold text-primary">
+                <button
+                  onClick={() => navigate("/search")}
+                  style={{
+                    fontSize: 13,
+                    color: "#3B82F6",
+                    background: "transparent",
+                    border: "none",
+                    cursor: "pointer",
+                    fontFamily: "inherit",
+                    padding: 0,
+                    fontWeight: 500,
+                  }}
+                >
                   View all
                 </button>
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(2, 1fr)",
+                  gap: 16,
+                }}
+              >
                 {items.slice(0, 4).map((loc) => (
                   <button
                     key={loc.id}
                     onClick={() => navigate(`/location/${loc.id}`)}
-                    className="bg-card rounded-2xl overflow-hidden shadow-card border border-border/50 text-left transition-all active:scale-[0.98] hover:shadow-float"
+                    style={{
+                      width: "100%",
+                      borderRadius: 16,
+                      overflow: "hidden",
+                      background: "#FFFFFF",
+                      boxShadow: CARD_SHADOW,
+                      border: "none",
+                      cursor: "pointer",
+                      padding: 0,
+                      textAlign: "left",
+                      fontFamily: "inherit",
+                    }}
                   >
-                    <div className="aspect-[4/3] w-full overflow-hidden bg-muted">
-                      <img
-                        src={categoryImages[loc.category]}
-                        alt={loc.name}
-                        loading="lazy"
-                        width={768}
-                        height={512}
-                        className="h-full w-full object-cover"
-                      />
-                    </div>
-                    <div className="p-3">
-                      <p className="text-sm font-semibold text-foreground truncate">{loc.name}</p>
-                      <div className="flex items-center gap-1 mt-0.5">
-                        <MapPin size={11} className="text-muted-foreground shrink-0" />
-                        <p className="text-[11px] text-muted-foreground truncate">{loc.address}</p>
-                      </div>
-                      <span className="inline-block mt-2 text-[10px] font-semibold bg-accent/15 text-accent px-2 py-0.5 rounded-full">
+                    <img
+                      src={categoryImages[loc.category]}
+                      alt={loc.name}
+                      loading="lazy"
+                      width={768}
+                      height={512}
+                      style={{ height: 120, width: "100%", objectFit: "cover", display: "block" }}
+                    />
+                    <div style={{ padding: 12 }}>
+                      <p
+                        style={{
+                          fontSize: 14,
+                          fontWeight: 600,
+                          color: "#1E293B",
+                          margin: 0,
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        {loc.name}
+                      </p>
+                      <p
+                        style={{
+                          fontSize: 12,
+                          color: "#64748B",
+                          margin: "4px 0 0 0",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        {loc.address}
+                      </p>
+                      <span
+                        style={{
+                          display: "inline-block",
+                          marginTop: 8,
+                          background: "#DCFCE7",
+                          color: "#16A34A",
+                          fontSize: 11,
+                          padding: "4px 8px",
+                          borderRadius: 999,
+                          fontWeight: 500,
+                        }}
+                      >
                         {loc.freeSlots} slots free
                       </span>
                     </div>
