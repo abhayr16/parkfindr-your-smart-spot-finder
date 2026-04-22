@@ -11,6 +11,8 @@ import {
   Cross,
   Building2,
   UtensilsCrossed,
+  Fuel,
+  Coffee,
 } from "lucide-react";
 import { categories, locations } from "@/data/locations";
 import { useApp } from "@/context/AppContext";
@@ -61,11 +63,13 @@ const HomeScreen = () => {
   ];
 
   const categoryButtons = [
-    { key: "parking", label: "Nearby Parking", Icon: ParkingSquare, bg: "#DBEAFE", color: "#2563EB" },
+    { key: "parking", label: "Parking", Icon: ParkingSquare, bg: "#DBEAFE", color: "#2563EB" },
     { key: "malls", label: "Malls", Icon: Store, bg: "#FCE7F3", color: "#DB2777" },
     { key: "hospitals", label: "Hospitals", Icon: Cross, bg: "#FEE2E2", color: "#DC2626" },
     { key: "hotels", label: "Hotels", Icon: Building2, bg: "#DCFCE7", color: "#16A34A" },
-    { key: "restaurants", label: "Restaurants", Icon: UtensilsCrossed, bg: "#FFEDD5", color: "#EA580C" },
+    { key: "restaurants", label: "Food", Icon: UtensilsCrossed, bg: "#FFEDD5", color: "#EA580C" },
+    { key: "fuel", label: "Fuel", Icon: Fuel, bg: "#FEF3C7", color: "#D97706" },
+    { key: "cafes", label: "Cafes", Icon: Coffee, bg: "#EDE9FE", color: "#7C3AED" },
   ];
 
   const firstName = user?.name?.split(" ")[0] || "Ada";
@@ -230,13 +234,20 @@ const HomeScreen = () => {
         ))}
       </div>
 
-      {/* CATEGORY BUTTONS */}
+      {/* CATEGORY BUTTONS - horizontal scroll, 4 visible + peek */}
       <div
+        className="hide-scrollbar"
         style={{
-          padding: "24px 16px 0 16px",
-          display: "grid",
-          gridTemplateColumns: "repeat(5, 1fr)",
+          marginTop: 24,
+          paddingLeft: 16,
+          paddingRight: 16,
+          display: "flex",
           gap: 12,
+          overflowX: "auto",
+          overflowY: "hidden",
+          scrollBehavior: "smooth",
+          WebkitOverflowScrolling: "touch",
+          flexWrap: "nowrap",
         }}
       >
         {categoryButtons.map((c) => (
@@ -244,6 +255,7 @@ const HomeScreen = () => {
             key={c.key}
             onClick={() => navigate("/search")}
             style={{
+              flex: "0 0 calc((100% - 16px - 3 * 12px) / 4.3)",
               height: 72,
               borderRadius: 16,
               background: "#FFFFFF",
@@ -260,9 +272,9 @@ const HomeScreen = () => {
           >
             <div
               style={{
-                width: 32,
-                height: 32,
-                borderRadius: 16,
+                width: 36,
+                height: 36,
+                borderRadius: 18,
                 background: c.bg,
                 color: c.color,
                 display: "flex",
@@ -270,15 +282,16 @@ const HomeScreen = () => {
                 justifyContent: "center",
               }}
             >
-              <c.Icon size={18} />
+              <c.Icon size={22} />
             </div>
             <span
               style={{
-                fontSize: 11,
+                fontSize: 12,
                 fontWeight: 500,
                 color: "#1E293B",
                 textAlign: "center",
                 lineHeight: 1.2,
+                whiteSpace: "nowrap",
               }}
             >
               {c.label}
