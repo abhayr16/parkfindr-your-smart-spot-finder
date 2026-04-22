@@ -38,6 +38,8 @@ const sectionTitle: Record<string, string> = {
 };
 
 const CARD_SHADOW = "0px 4px 20px rgba(0, 0, 0, 0.05)";
+const CARD_RADIUS = 14;
+const IMG_HEIGHT = 90;
 
 const HomeScreen = () => {
   const navigate = useNavigate();
@@ -323,16 +325,16 @@ const HomeScreen = () => {
                 style={{
                   display: "grid",
                   gridTemplateColumns: "repeat(2, 1fr)",
-                  gap: 16,
+                  gap: 12,
                 }}
               >
-                {items.slice(0, 4).map((loc) => (
+                {items.slice(0, 2).map((loc) => (
                   <button
                     key={loc.id}
                     onClick={() => navigate(`/location/${loc.id}`)}
                     style={{
                       width: "100%",
-                      borderRadius: 16,
+                      borderRadius: CARD_RADIUS,
                       overflow: "hidden",
                       background: "#FFFFFF",
                       boxShadow: CARD_SHADOW,
@@ -349,12 +351,12 @@ const HomeScreen = () => {
                       loading="lazy"
                       width={768}
                       height={512}
-                      style={{ height: 120, width: "100%", objectFit: "cover", display: "block" }}
+                      style={{ height: IMG_HEIGHT, width: "100%", objectFit: "cover", display: "block" }}
                     />
-                    <div style={{ padding: 12 }}>
+                    <div style={{ padding: 10 }}>
                       <p
                         style={{
-                          fontSize: 14,
+                          fontSize: 13,
                           fontWeight: 600,
                           color: "#1E293B",
                           margin: 0,
@@ -367,7 +369,7 @@ const HomeScreen = () => {
                       </p>
                       <p
                         style={{
-                          fontSize: 12,
+                          fontSize: 11,
                           color: "#64748B",
                           margin: "4px 0 0 0",
                           overflow: "hidden",
@@ -380,7 +382,7 @@ const HomeScreen = () => {
                       <span
                         style={{
                           display: "inline-block",
-                          marginTop: 8,
+                          marginTop: 4,
                           background: "#DCFCE7",
                           color: "#16A34A",
                           fontSize: 11,
