@@ -335,18 +335,26 @@ const HomeScreen = () => {
                 </button>
               </div>
               <div
+                className="hide-scrollbar"
                 style={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(2, 1fr)",
+                  display: "flex",
                   gap: 12,
+                  overflowX: "auto",
+                  overflowY: "hidden",
+                  scrollBehavior: "smooth",
+                  WebkitOverflowScrolling: "touch",
+                  marginLeft: -16,
+                  marginRight: -16,
+                  paddingLeft: 16,
+                  paddingRight: 16,
                 }}
               >
-                {items.slice(0, 2).map((loc) => (
+                {items.slice(0, 7).map((loc) => (
                   <button
                     key={loc.id}
                     onClick={() => navigate(`/location/${loc.id}`)}
                     style={{
-                      width: "100%",
+                      flex: "0 0 calc((100% - 48px - 12px) / 4)",
                       borderRadius: CARD_RADIUS,
                       overflow: "hidden",
                       background: "#FFFFFF",
