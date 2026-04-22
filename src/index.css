@@ -67,6 +67,13 @@
   .gradient-hero {
     background: linear-gradient(180deg, hsl(217, 91%, 55%), hsl(217, 91%, 45%));
   }
+  .gradient-soft {
+    background: linear-gradient(160deg, hsl(217, 100%, 97%) 0%, hsl(260, 100%, 98%) 60%, hsl(0, 0%, 100%) 100%);
+  }
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+  .shadow-card { box-shadow: 0 4px 20px -8px hsl(217 40% 40% / 0.12); }
+  .shadow-float { box-shadow: 0 8px 28px -10px hsl(217 60% 40% / 0.18); }
   .text-gradient {
     background: linear-gradient(135deg, hsl(217, 91%, 60%), hsl(217, 91%, 75%));
     -webkit-background-clip: text;
